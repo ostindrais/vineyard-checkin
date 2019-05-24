@@ -12,7 +12,7 @@ require('quasar-framework/dist/quasar.mat.css');
 require('quasar-extras/roboto-font');
 
 import Quasar from 'quasar-framework';
-import router from './router';
+import router from '../assets/js/router';
 
 Vue.use(Quasar);
 
