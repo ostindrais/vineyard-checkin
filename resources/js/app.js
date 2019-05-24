@@ -19,7 +19,18 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Bring in quasar
+import { Quasar,QList,QListHeader,QItem,QItemMain,QToolbar,QToolbarTitle } from 'quasar-framework/dist/quasar.mat.esm';
+/**
+window.Quasar = require('quasar');
+Vue.use(Quasar, { config: {},components: {QLayout,QLayoutHeader,QLayoutDrawer,QPageContainer,QPage,QToolbar,QToolbarTitle,QBtn,QIcon,QList,QListHeader,QItem,QItemMain,QItemSide},directives: {Ripple},plugins: {Notify} })
+*/
+import { QDatetimePicker } from 'quasar-framework';
+import {QLayout,QLayoutHeader,QLayoutDrawer,QItemSide} from 'quasar-framework'
+import {QPageContainer,QPage,QBtn,QIcon,Ripple,Notify} from 'quasar'
+
+
+Vue.use(Quasar, { config: {},components: {QLayout,QLayoutHeader,QLayoutDrawer,QPageContainer,QPage,QToolbar,QToolbarTitle,QBtn,QIcon,QList,QListHeader,QItem,QItemMain,QItemSide},directives: {Ripple},plugins: {Notify} })
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

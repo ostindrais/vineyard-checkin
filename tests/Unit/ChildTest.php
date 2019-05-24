@@ -35,10 +35,10 @@ class ChildTest extends TestCase
         $family = Family::find($family->id);
         // now check the association
         $this->assertEquals('App\Child', get_class($family->children->first()));
+        // load the children relation by accessing
+        $familyChildren = $child->family->children;
         $familyCheck = $child->family;
-        $childrenTest = $familyCheck->children()->get();
-        print_r($childrenTest->toArray());
-        $this->assertEquals($family, $familyCheck);
+        $this->assertEquals($family->toArray(), $familyCheck->toArray());
     }
 
 }
