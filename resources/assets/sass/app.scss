@@ -7,3 +7,9 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Toolbar row should not have negative margins
+.q-toolbar.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}

@@ -16,7 +16,7 @@ import router from './router';
 
 Vue.use(Quasar);
 
-Vue.component('app', require('./components/App.vue'));
+Vue.component('app', require('./components/App.vue').default);
 
 const app = new Vue(
     {
