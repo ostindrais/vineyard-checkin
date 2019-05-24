@@ -14,7 +14,7 @@ class EventTest extends TestCase
     {
         $event = new Event;
         $event->save();
-        $this->assertLessThan(1, time() - strtotime($event->start_time));
+        $this->assertLessThan(1, time() - $event->start_time);
     }
 
 }
