@@ -6,6 +6,8 @@ httpsdocs
 /vendor
 /.idea
 /.vagrant
+.env
+.phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
