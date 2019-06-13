@@ -4,24 +4,29 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-//require('./bootstrap');
+require('./bootstrap');
 
 window.Vue = require('vue');
 
-require('quasar-framework/dist/quasar.mat.css');
-require('quasar-extras/roboto-font');
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
 
-import Quasar from 'quasar-framework';
-import router from '../assets/js/router';
+// const files = require.context('./', true, /\.vue$/i);
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.use(Quasar);
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-Vue.component('app', require('../assets/js/components/App.vue').default);
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
-const app = new Vue(
-    {
-        el: '#app',
-        router
-    }
-);
-
+const app = new Vue({
+    el: '#app',
+});

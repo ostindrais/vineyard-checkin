@@ -1,15 +1,8 @@
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
-
-
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import "variables";
+@import 'variables';
 
-// Toolbar row should not have negative margins
-.q-toolbar.row {
-    margin-left: 0px;
-    margin-right: 0px;
-}
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
