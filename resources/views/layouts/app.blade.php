@@ -69,7 +69,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    @if(\App\Event::activeEventExists())
+                                    <a class="dropdown-item" onclick="event.preventDefault(); endCheckin();
+                                                      document.getElementById('logout-form').submit();">
+                                         End Check-in & {{ __('Logout') }}
+                                     </a>
+                                    @endif
+                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -107,15 +113,19 @@
               </button>
             </div>
             <div class="modal-body">
-              Start Check-In
+                <div class="md-form form-lg">
+                    <input type="text" placeholder="Service Name" name="checkin" id="txt-start-checkin" class="form-control form-control-lg" />
+                </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Start</button>
+              <button type="button" class="btn btn-primary" onclick="javascript:startCheckin()">Start</button>
             </div>
           </div>
         </div>
       </div>
+      @stack('modals')
+      @stack('javascript')
 
         </body>
         <script type="text/javascript">
@@ -124,5 +134,27 @@ $('.grid').masonry({
   columnWidth: '.grid-sizer',
   percentPosition: true
 });
+
+function startCheckin()
+{
+    // get the service name
+    let eventName = $('#txt-start-checkin').val();
+    // and start the service
+    $.post('/api/checkin/start', { event: eventName, api_token: "{{ Auth::user() ? Auth::user()->api_token : '' }}" }, function (res) {
+        // redirect to the checkin screen
+        window.location = '/checkin';
+    }, "json");
+}
+
+function endCheckin()
+{
+    // get the service name
+    let eventName = $('#txt-start-checkin').val();
+    // and start the service
+    $.post('/api/checkin/end', { event: eventName, api_token: "{{ Auth::user() ? Auth::user()->api_token : '' }}" }, function (res) {
+        // redirect to the home screen
+        window.location = '/';
+    }, "json");
+}
         </script>
 </html>

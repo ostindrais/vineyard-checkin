@@ -13,6 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::post('/checkin/start', function (Request $request) {
+        // start an event
+        $event = new \App\Event;
+        $newEvent = $event->start($request->input('event'));
+        return $newEvent;
+    });
 });

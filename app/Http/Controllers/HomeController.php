@@ -25,4 +25,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    /**
+     * Show the checkin screen.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function checkin()
+    {
+        return view('checkin');
+    }
 }

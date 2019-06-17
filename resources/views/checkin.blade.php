@@ -25,7 +25,7 @@
 @endsection
 @section('content')
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Check-In</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -33,8 +33,12 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    <div class="md-form form-lg">
+                        <input type="text" placeholder="Enter part of phone # or name" name="checkin" id="txt-checkin-search" class="form-control form-control-lg" />
+                    </div>
                 </div>
             </div>
+            <script type="text/javascript">
+            $('#txt-checkin-search').focus();
+            </script>
 @endsection
