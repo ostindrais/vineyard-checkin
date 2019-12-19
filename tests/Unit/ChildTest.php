@@ -41,4 +41,38 @@ class ChildTest extends TestCase
         $this->assertEquals($family->toArray(), $familyCheck->toArray());
     }
 
+    public function testChildSearchReturnsEmptyIfNoMatch()
+    {
+        $Child = new Child;
+        $found = $Child->search('notfound');
+        $this->assertEquals(0, $found->count());
+    }
+
+    public function testChildSearchReturnsMatchingLastname()
+    {
+        // make the Child
+        $Child = new Child;
+        $Child->firstname = 'Test';
+        $Child->lastname = 'Lastname';
+        $Child->save();
+        $Child = new Child;
+        $found = $Child->search('notfound');
+        $this->assertEquals(0, $found->count());
+        $found = $Child->search('Lastname');
+        $this->assertEquals(1, $found->count());
+    }
+
+    public function testChildSearchReturnsMatchingFirstname()
+    {
+        // make the Child
+        $Child = new Child;
+        $Child->firstname = 'Firstname';
+        $Child->lastname = 'Test';
+        $Child->save();
+        $Child = new Child;
+        $found = $Child->search('notfound');
+        $this->assertEquals(0, $found->count());
+        $found = $Child->search('Firstname');
+        $this->assertEquals(1, $found->count());
+    }
 }

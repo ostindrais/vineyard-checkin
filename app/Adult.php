@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Adult extends Model
 {
@@ -24,5 +25,16 @@ class Adult extends Model
             throw new \Exception('Missing data.');
         }
         return parent::save($options);
+    }
+
+    /**
+     * Search for an adult by name or phone
+     *
+     * @param string $value Value to search for
+     * @return Collection
+     */
+    public function search($value)
+    {
+        return $this::query()->whereLike(['lastname', 'firstname', 'phone'], $value)->with('family')->get();
     }
 }

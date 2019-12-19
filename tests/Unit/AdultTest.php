@@ -27,7 +27,7 @@ class AdultTest extends TestCase
         $this->expectException(\Exception::class);
         $adult->save();
     }
-    
+
     public function testAdultThrowsExceptionWhenTwoDataSet()
     {
         $adult = new Adult;
@@ -72,5 +72,55 @@ class AdultTest extends TestCase
         $this->assertEquals($family, $familyCheck);
     }
 
-    
+    public function testAdultSearchReturnsEmptyIfNoMatch()
+    {
+        $adult = new Adult;
+        $found = $adult->search('notfound');
+        $this->assertEquals(0, $found->count());
+    }
+
+    public function testAdultSearchReturnsMatchingLastname()
+    {
+        // make the adult
+        $adult = new Adult;
+        $adult->firstname = 'Test';
+        $adult->lastname = 'Lastname';
+        $adult->phone = '2223334444';
+        $adult->save();
+        $adult = new Adult;
+        $found = $adult->search('notfound');
+        $this->assertEquals(0, $found->count());
+        $found = $adult->search('Lastname');
+        $this->assertEquals(1, $found->count());
+    }
+
+    public function testAdultSearchReturnsMatchingFirstname()
+    {
+        // make the adult
+        $adult = new Adult;
+        $adult->firstname = 'Firstname';
+        $adult->lastname = 'Test';
+        $adult->phone = '2223334444';
+        $adult->save();
+        $adult = new Adult;
+        $found = $adult->search('notfound');
+        $this->assertEquals(0, $found->count());
+        $found = $adult->search('Firstname');
+        $this->assertEquals(1, $found->count());
+    }
+
+    public function testAdultSearchReturnsMatchingPhone()
+    {
+        // make the adult
+        $adult = new Adult;
+        $adult->firstname = 'Firstname';
+        $adult->lastname = 'Test';
+        $adult->phone = '5554447777';
+        $adult->save();
+        $adult = new Adult;
+        $found = $adult->search('notfound');
+        $this->assertEquals(0, $found->count());
+        $found = $adult->search('77');
+        $this->assertEquals(1, $found->count());
+    }
 }

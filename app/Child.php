@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Child extends Model
 {
@@ -21,4 +22,14 @@ class Child extends Model
         return $this->belongsTo('App\Family');
     }
 
+    /**
+     * Search for a child by name
+     *
+     * @param string $value Name to search for
+     * @return Collection
+     */
+    public function search($value)
+    {
+        return $this::query()->whereLike(['lastname', 'firstname'], $value)->get();
+    }
 }
