@@ -4,7 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+// require('./bootstrap');
 
 window.Vue = require('vue');
 
@@ -20,6 +20,8 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('search-result', require('./components/SearchResult.vue').default);
+Vue.component('search', require('./components/Search.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +31,19 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    data: {
+        searchResults: [],
+        search: ''
+    },
+    methods: {
+        runSearch: function (apiToken) {
+            // and start the search
+            var self = this;
+            $.post('/api/checkin/search', { value: this.search, api_token: apiToken }, function (res) {
+                // alert the values
+                self.searchResults = res.results;
+                alert(res.results);
+            }, "json");
+        }
+    }
 });

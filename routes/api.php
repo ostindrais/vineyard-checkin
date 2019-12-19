@@ -24,4 +24,12 @@ Route::middleware('auth:api')->group(function () {
         $newEvent = $event->start($request->input('event'));
         return $newEvent;
     });
+
+    Route::post('/checkin/search', function (Request $request) {
+        // search for family
+        $family = new \App\Family;
+        $foundFamilies = $family->search($request->input('value'));
+        return ['results' => $foundFamilies, 'count' => $foundFamilies->count()];
+    });
+
 });

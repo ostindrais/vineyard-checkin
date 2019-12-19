@@ -34,11 +34,44 @@
                         </div>
                     @endif
                     <div class="md-form form-lg">
-                        <input type="text" placeholder="Enter part of phone # or name" name="checkin" id="txt-checkin-search" class="form-control form-control-lg" />
+                            <input type="text" v-model="search" v-on:keyup.13="runSearch('{{ Auth::user() ? Auth::user()->api_token : '' }}')" placeholder="Enter part of phone # or name" name="checkin" id="txt-checkin-search" class="form-control form-control-lg" />
                     </div>
                 </div>
             </div>
-            <script type="text/javascript">
-            $('#txt-checkin-search').focus();
-            </script>
+            <div class="card">
+                    <div class="card-header">Results</div>
+
+                    <div class="card-body">
+                        <div class="md-form form-lg">
+                            <search-result search-results="searchResults"></search-result>
+                        </div>
+                    </div>
+
+            </div>
 @endsection
+
+@push('javascript')
+<script type="text/javascript">
+    let appSearchResults = [];
+
+    function runSearch()
+    {
+        console.log('Running search!');
+        // get the search value
+        let searchValue = $('#txt-checkin-search').val();
+        // and start the search
+        $.post('/api/checkin/search', { value: searchValue, api_token: "{{ Auth::user() ? Auth::user()->api_token : '' }}" }, function (res) {
+            // alert the values
+            app.results = res.results;
+            alert(res.results);
+        }, "json");
+    }
+    $('#txt-checkin-search').keyup(function (ev) {
+        console.log("Keyup!");
+        if (ev.which == 13) {
+            runSearch();
+        }
+    });
+    $('#txt-checkin-search').focus();
+    </script>
+@endpush

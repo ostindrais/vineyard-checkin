@@ -37,6 +37,6 @@ class Family extends Model
         foreach ($foundChildren as $foundChild) {
             $collection->push($foundChild->family);
         }
-        return $collection;
+        return $collection->unique();
     }
 }

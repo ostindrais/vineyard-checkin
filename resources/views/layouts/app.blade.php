@@ -96,7 +96,7 @@
                 @section('sidenav')
 
         @show
-        <div class="grid-item col-10 my-4">
+        <div id="app" class="grid-item col-10 my-4">
             @yield('content')
         </div>
     </div>
@@ -127,7 +127,9 @@
       @stack('modals')
       @stack('javascript')
 
-        </body>
+      <script type="application/javascript" src="/js/app.js"></script>
+
+    </body>
         <script type="text/javascript">
 $('.grid').masonry({
   itemSelector: '.grid-item',
